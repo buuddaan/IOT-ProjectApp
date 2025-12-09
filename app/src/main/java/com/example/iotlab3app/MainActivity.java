@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView txv_rgb;
     private TextView txv_light;
+    //test
     private TextView txv_proximity;
     private Button btn_color;
 
