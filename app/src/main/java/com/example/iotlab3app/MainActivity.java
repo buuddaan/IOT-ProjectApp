@@ -23,18 +23,14 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView txv_rgb;
-    private TextView txv_light;
-    //test
-    private TextView txv_proximity;
-    private Button btn_color;
 
+    private TextView txv_light;
     private MqttAndroidClient client;
     private static final String SERVER_URI = "tcp://test.mosquitto.org:1883";
     private static final String TAG = "MainActivity";
 
     // Define your topic here
-    private static final String TOPIC = "iotlab/yourname";
+    private static final String TOPIC = "group03/sensorValue";
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -47,10 +43,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        txv_rgb = (TextView) findViewById(R.id.txv_rgbValue);
         txv_light = (TextView) findViewById(R.id.txv_lightValue);
-        txv_proximity = (TextView) findViewById(R.id.txv_proximityValue);
-        btn_color = (Button) findViewById(R.id.btnColor);
 
         connect();
 
