@@ -21,10 +21,14 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
 
     private TextView txv_light;
+
+    private TextView txv_temperature;
     private MqttAndroidClient client;
     private static final String SERVER_URI = "tcp://test.mosquitto.org:1883";
     private static final String TAG = "MainActivity";
@@ -44,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         txv_light = (TextView) findViewById(R.id.txv_lightValue);
+        txv_temperature = (TextView) findViewById(R.id.txv_temperatureValue);
+
 
         connect();
 
@@ -127,6 +133,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //TODO gör
+    ArrayList<String> data = new ArrayList<>();
+
+    //data sätts till data från topic
+    //data
+
+    //kolla om det är mer än 10 i listan
+    //om det är det, ta bort första elementet och lägg till det som kom in
+    //if (data > 10){
+
+    //}
+
+    //
+
+    //för temperature, android studio använder terminalen, manual 2
 
 
 }
