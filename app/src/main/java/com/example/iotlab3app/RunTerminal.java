@@ -23,12 +23,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.iotlabapp.databinding.ActivityMainBinding;
+import com.example.iotlab3app.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class RunTerminal extends AppCompatActivity {
 
     private volatile String lastOutput = "";
     TextView txv_temp_indoor = null;
@@ -43,41 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         txv_temp_indoor = (TextView) findViewById(R.id.indoorTempShow);
         txv_temp_indoor.setText("The fetched temp indoor");
-        lightToggle = (Switch) findViewById(R.id.btnToggle);
-        lightToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-// below you write code to change switch status and action to take
-                if (isChecked) {
-//do something if checked
-                    new AsyncTask<Integer, Void, Void>() {
-                        @Override
-                        protected Void doInBackground(Integer... params) {
-                            run("python turnondevices.py");
-                            return null;
-                        }
-                        @Override
-                        protected void onPostExecute(Void r) {
 
-                            lightToggle.setText("ON");
-
-                        }
-                    }.execute(1);
-                } else {
-// to do something if not checked
-                    new AsyncTask<Integer, Void, Void>() {
-                        @Override
-                        protected Void doInBackground(Integer... params) {
-                            run("python turnoffdevices.py");
-                            return null;
-                        }
-                        @Override
-                        protected void onPostExecute(Void r) {
-                            lightToggle.setText("OFF");
-                        }
-                    }.execute(1);
-                }}
-        });
         btnUpdateTemp = (Button) findViewById(R.id.btnUpdateTemp);
         btnUpdateTemp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -102,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void run (String command) {
-        String hostname = "RPI_IP_ADDRESS";
-        String username = "RPI_USERNAME";
-        String password = "RPI_PASSWORD";
+        String hostname = "130.237.177.216";
+        String username = "group03";
+        String password = "teddy";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder() .permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
