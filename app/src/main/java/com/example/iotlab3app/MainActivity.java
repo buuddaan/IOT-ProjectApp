@@ -183,22 +183,4 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    //TODO gör
-
-
-
-    //data sätts till data från topic
-
-    //kolla om det är mer än 10 i listan
-    //om det är det, ta bort första elementet och lägg till det som kom in
-    //if (data > 10){
-
-    //}
-
-    //
-
-    //för temperature, android studio använder terminalen, manual 2
-
-
 }
