@@ -236,4 +236,4 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-//TODO: Diskutera Update-knappens funktionalitet, lösa backlog funktion (Maja, this one's for you!)
+//TODO: Diskutera Update-knappens funktionalitet, lösa backlog funktion (Maja, this one's for you!). Förslag: byta knappar mot mer värden på startsida
