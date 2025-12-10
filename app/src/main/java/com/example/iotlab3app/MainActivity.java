@@ -20,6 +20,8 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,17 @@ public class MainActivity extends AppCompatActivity {
 
     // Define your topic here
     private static final String TOPIC = "group03/sensorValue";
+
+    private ArrayList<Double> luxValue = new ArrayList<>();
+
+    private ArrayList<Double> temperatureValue = new ArrayList<>();
+
+    //ArrayList<Double> allLuxValue = new ArrayList<>();
+
+    //ArrayList<Double> allTemperatureValue = new ArrayList();
+
+    //innan de gamla värderna raderas, flyttas de över till dessa listor med alla tidigare värden
+    //ingen funktionalitet för detta men kan vara framtida ambitioner
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -75,9 +88,33 @@ public class MainActivity extends AppCompatActivity {
                 String newMessage = new String(message.getPayload());
                 System.out.println("Incoming message: " + newMessage);
 
-                runOnUiThread(() -> {
-                    txv_light.setText(newMessage);
-                });
+                try {
+                    JSONObject json = new JSONObject(newMessage);
+                    double lux = json.getDouble("lux");
+                    double temperature = json.getDouble("temperature");
+
+                    addValues(lux, temperature);
+
+                    if(lux > 800d || lux < 0d){
+                        String luxText = luxValue.get(0) + "OBS, lux out of safe range";
+                        txv_light.setText(luxText);
+                    }
+                    if(temperature > 24d || temperature < 15d){
+                        String temperatureText = temperatureValue.get(0) + "OBS, temperature out of safe range";
+                        txv_temperature.setText(temperatureText);
+                    }
+
+                    else {
+                        runOnUiThread(() -> {
+                            txv_light.setText(String.valueOf(luxValue.get(0)));
+                            txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
+                        });
+                    }
+
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
@@ -85,6 +122,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void addValues(double lux, double temperature){
+        luxValue.add(0, lux);
+
+        temperatureValue.add(0, temperature);
+
+        if (luxValue.size() > 10){
+            luxValue.remove(10);
+        }
+
+        if (temperatureValue.size() > 10){
+            luxValue.remove(10);
+        }
     }
 
     private void connect(){
@@ -134,10 +185,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO gör
-    ArrayList<String> data = new ArrayList<>();
+
+
 
     //data sätts till data från topic
-    //data
 
     //kolla om det är mer än 10 i listan
     //om det är det, ta bort första elementet och lägg till det som kom in
