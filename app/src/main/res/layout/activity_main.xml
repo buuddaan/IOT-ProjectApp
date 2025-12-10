@@ -58,17 +58,26 @@
             android:textSize="15sp"
             android:typeface="monospace" />
 
+        <TextView
+            android:id="@+id/humidityValue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="230dp"
+            android:padding="15dip"
+            android:text="Acceptable humidity value = 10-50%"
+            android:textSize="15sp"
+            android:typeface="monospace" />
+
         <LinearLayout
             android:layout_width="412dp"
             android:layout_height="400dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="257dp"
-            android:layout_marginEnd="0dp"
-            android:gravity="center"
+            android:layout_marginTop="328dp"
+            android:layout_marginEnd="-3dp"
             android:background="#FFFFFF"
-            android:orientation="vertical"
-            android:padding="30dip">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -132,29 +141,61 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dip">
+
+                <TextView
+                    android:id="@+id/txv_humidityTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="5dip"
+                    android:text="Humidity value:"
+                    android:textColor="@color/black_alpha"
+                    android:textSize="18sp"
+                    android:typeface="monospace" />
+
+                <TextView
+                    android:id="@+id/txv_humidityValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:padding="5dip"
+                    android:text="Nothing yet!"
+                    android:textColor="@color/black_alpha"
+                    android:textSize="18sp"
+                    android:typeface="monospace" />
+
+            </LinearLayout>
+
             <Button
                 android:id="@+id/btnColor"
                 style="@android:style/Widget.DeviceDefault.Button.Borderless"
                 android:layout_width="298dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="25dp"
+                android:layout_margin="20dp"
                 android:background="@color/activitybutton"
                 android:fontFamily="monospace"
                 android:padding="10dp"
                 android:text=" Update "
                 android:textAllCaps="false"
-                android:textColor="@color/black_alpha"
+                android:textColor="#FFFFFF"
                 android:textSize="25sp" />
 
             <Button
                 android:id="@+id/btnScanQR"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:background="@android:color/holo_blue_dark"
+                android:layout_margin="25dp"
+                android:background="#6FBBDC"
                 android:drawableLeft="@android:drawable/ic_menu_camera"
-                android:padding="15dp"
+                android:padding="5dp"
                 android:text="Scan next medicin"
-                android:textColor="@color/black_alpha"
+                android:textColor="#FFFFFF"
                 android:textSize="16sp" />
 
         </LinearLayout>

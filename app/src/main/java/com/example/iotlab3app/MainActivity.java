@@ -31,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView txv_light;
 
     private TextView txv_temperature;
+
+    private TextView txv_humidity;
+
+    private TextView luxList;
+
+    private TextView temperatureList;
+
+    private TextView humidityList;
     private MqttAndroidClient client;
     private static final String SERVER_URI = "tcp://test.mosquitto.org:1883";
     private static final String TAG = "MainActivity";
@@ -41,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Double> luxValue = new ArrayList<>();
 
     private ArrayList<Double> temperatureValue = new ArrayList<>();
+
+    private ArrayList<Double> humidityValue = new ArrayList<>();
 
     //ArrayList<Double> allLuxValue = new ArrayList<>();
 
@@ -60,9 +70,20 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.backlog), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
         txv_light = (TextView) findViewById(R.id.txv_lightValue);
         txv_temperature = (TextView) findViewById(R.id.txv_temperatureValue);
+        txv_humidity = (TextView) findViewById((R.id.txv_humidityValue));
 
+        luxList = (TextView) findViewById(R.id.luxValue);
+        temperatureList = (TextView) findViewById(R.id.temperatureValue);
+        humidityList = (TextView) findViewById(R.id.humidityValue);
 
         connect();
 
@@ -92,8 +113,9 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject json = new JSONObject(newMessage);
                     double lux = json.getDouble("lux");
                     double temperature = json.getDouble("temperature");
+                    double humidity = json.getDouble("humidity");
 
-                    addValues(lux, temperature);
+                    addValues(lux, temperature, humidity);
 
                     if(lux > 600d || lux < 0d){
                         String luxText = luxValue.get(0) + "OBS, lux out of safe range";
@@ -103,38 +125,49 @@ public class MainActivity extends AppCompatActivity {
                         String temperatureText = temperatureValue.get(0) + "OBS, temperature out of safe range";
                         txv_temperature.setText(temperatureText);
                     }
+                    if(humidity > 50 || humidity < 10){
+                        String humidityText = humidityValue.get(0) + "OBS, humidity out of safe range";
+                        txv_humidity.setText(humidityText);
+                    }
 
                     else {
                         runOnUiThread(() -> {
                             txv_light.setText(String.valueOf(luxValue.get(0)));
                             txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
+                            txv_humidity.setText(String.valueOf(humidityValue.get(0)));
+
+                            //för backloggen
+                            luxList.setText(String.valueOf(luxValue));
+                            temperatureList.setText(String.valueOf(temperatureValue));
+                            humidityList.setText(String.valueOf(humidityValue));
                         });
                     }
-
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-
             }
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
                 System.out.println("Message delivered");
             }
         });
-
     }
 
-    private void addValues(double lux, double temperature){
+    private void addValues(double lux, double temperature, double humidity){
         luxValue.add(0, lux);
 
         temperatureValue.add(0, temperature);
 
+        humidityValue.add(0, humidity);
+
         if (luxValue.size() > 10){
             luxValue.remove(10);
         }
-
         if (temperatureValue.size() > 10){
-            luxValue.remove(10);
+            temperatureValue.remove(10);
+        }
+        if (humidityValue.size() > 10){
+            humidityValue.remove(10);
         }
     }
 
