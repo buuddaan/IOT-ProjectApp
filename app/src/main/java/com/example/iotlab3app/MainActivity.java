@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
                     addValues(lux, temperature);
 
-                    if(lux > 800d || lux < 0d){
+                    if(lux > 600d || lux < 0d){
                         String luxText = luxValue.get(0) + "OBS, lux out of safe range";
                         txv_light.setText(luxText);
                     }

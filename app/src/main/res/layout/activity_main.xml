@@ -23,18 +23,49 @@
             android:gravity="center"
             android:lineSpacingExtra="12sp"
             android:padding="10dip"
-            android:text="Pharmaceutical sensor"
+            android:text="Pharmaceutical data"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp"
             android:typeface="monospace" />
 
+        <TextView
+            android:id="@+id/levaxin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:padding="15dip"
+            android:text="Levaxin"
+            android:textSize="25sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:id="@+id/luxValue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:padding="15dip"
+            android:textSize="15sp"
+            android:typeface="monospace"
+            android:text="Acceptable lux value = 0-600lx" />
+
+        <TextView
+            android:id="@+id/temperatureValue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="190dp"
+            android:padding="15dip"
+            android:text="Acceptable temperature value = 15-24°C"
+            android:textSize="15sp"
+            android:typeface="monospace" />
+
         <LinearLayout
             android:layout_width="412dp"
-            android:layout_height="429dp"
+            android:layout_height="400dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="63dp"
-            android:layout_marginEnd="-1dp"
+            android:layout_marginTop="257dp"
+            android:layout_marginEnd="0dp"
+            android:gravity="center"
             android:background="#FFFFFF"
             android:orientation="vertical"
             android:padding="30dip">
@@ -106,16 +137,27 @@
                 style="@android:style/Widget.DeviceDefault.Button.Borderless"
                 android:layout_width="298dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="25dp"
                 android:background="@color/activitybutton"
-                android:fontFamily="monospace"
-                android:padding="10dip"
-                android:text=" Wow! "
+                android:fontFamily="mFonospace"
+                android:padding="10dp"
+                android:text=" Update "
                 android:textAllCaps="false"
                 android:textColor="@color/black_alpha"
                 android:textSize="25sp" />
-        </LinearLayout>
 
+            <Button
+                android:id="@+id/btnScanQR"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_blue_dark"
+                android:drawableLeft="@android:drawable/ic_menu_camera"
+                android:padding="15dp"
+                android:text="Scan next medicin"
+                android:textColor="@color/black_alpha"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
