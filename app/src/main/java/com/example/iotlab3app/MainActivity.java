@@ -109,65 +109,61 @@ public class MainActivity extends AppCompatActivity {
                 String newMessage = new String(message.getPayload());
                 System.out.println("Incoming message: " + newMessage);
 
-                try {
-                    JSONObject json = new JSONObject(newMessage);
-                    double lux = json.getDouble("lux");
-                    double temperature = json.getDouble("temperature");
-                    double humidity = json.getDouble("humidity");
+                JSONObject json = new JSONObject(newMessage);
+                double lux = json.getDouble("lux");
+                double temperature = json.getDouble("temperature");
+                double humidity = json.getDouble("humidity");
 
-                    addValues(lux, temperature, humidity);
+                addValues(lux, temperature, humidity);
 
-                    if(lux > 600d || lux < 0d){
-                        String luxText = luxValue.get(0) + "OBS, lux out of safe range";
-                        runOnUiThread(() -> {
-                            txv_light.setText(luxText);
-                            txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
-                            txv_humidity.setText(String.valueOf(humidityValue.get(0)));
+                if(lux > 600d || lux < 0d){
+                    String luxText = luxValue.get(0) + "OBS, lux out of safe range";
+                    runOnUiThread(() -> {
+                        txv_light.setText(luxText);
+                        txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
+                        txv_humidity.setText(String.valueOf(humidityValue.get(0)));
 
-                            luxList.setText(String.valueOf(luxValue));
-                            temperatureList.setText(String.valueOf(temperatureValue));
-                            humidityList.setText(String.valueOf(humidityValue));
-                        });
-                    }
-                    else if(temperature > 24d || temperature < 15d){
-                        String temperatureText = temperatureValue.get(0) + "OBS, temperature out of safe range";
-                        runOnUiThread(() -> {
-                            txv_temperature.setText(temperatureText);
-                            txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
-                            txv_humidity.setText(String.valueOf(humidityValue.get(0)));
+                        luxList.setText(String.valueOf(luxValue));
+                        temperatureList.setText(String.valueOf(temperatureValue));
+                        humidityList.setText(String.valueOf(humidityValue));
+                    });
+                }
+                else if(temperature > 24d || temperature < 15d){
+                    String temperatureText = temperatureValue.get(0) + "OBS, temperature out of safe range";
+                    runOnUiThread(() -> {
+                        txv_temperature.setText(temperatureText);
+                        txv_light.setText(String.valueOf(luxValue.get(0)));
+                        txv_humidity.setText(String.valueOf(humidityValue.get(0)));
 
-                            luxList.setText(String.valueOf(luxValue));
-                            temperatureList.setText(String.valueOf(temperatureValue));
-                            humidityList.setText(String.valueOf(humidityValue));
-                        });
-                    }
-                    else if(humidity > 50 || humidity < 10){
-                        String humidityText = humidityValue.get(0) + "OBS, humidity out of safe range";
-                        runOnUiThread(() -> {
-                            txv_humidity.setText(humidityText);
-                            txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
-                            txv_humidity.setText(String.valueOf(humidityValue.get(0)));
+                        luxList.setText(String.valueOf(luxValue));
+                        temperatureList.setText(String.valueOf(temperatureValue));
+                        humidityList.setText(String.valueOf(humidityValue));
+                    });
+                }
+                else if(humidity > 50 || humidity < 10){
+                    String humidityText = humidityValue.get(0) + "OBS, humidity out of safe range";
+                    runOnUiThread(() -> {
+                        txv_humidity.setText(humidityText);
+                        txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
+                        txv_light.setText(String.valueOf(luxValue.get(0)));
 
-                            luxList.setText(String.valueOf(luxValue));
-                            temperatureList.setText(String.valueOf(temperatureValue));
-                            humidityList.setText(String.valueOf(humidityValue));
-                        });
-                    }
+                        luxList.setText(String.valueOf(luxValue));
+                        temperatureList.setText(String.valueOf(temperatureValue));
+                        humidityList.setText(String.valueOf(humidityValue));
+                    });
+                }
 
-                    else {
-                        runOnUiThread(() -> {
-                            txv_light.setText(String.valueOf(luxValue.get(0)));
-                            txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
-                            txv_humidity.setText(String.valueOf(humidityValue.get(0)));
+                else {
+                    runOnUiThread(() -> {
+                        txv_light.setText(String.valueOf(luxValue.get(0)));
+                        txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
+                        txv_humidity.setText(String.valueOf(humidityValue.get(0)));
 
-                            //för backloggen
-                            luxList.setText(String.valueOf(luxValue));
-                            temperatureList.setText(String.valueOf(temperatureValue));
-                            humidityList.setText(String.valueOf(humidityValue));
-                        });
-                    }
-                } catch (Exception e){
-                    e.printStackTrace();
+                        //för backloggen
+                        luxList.setText(String.valueOf(luxValue));
+                        temperatureList.setText(String.valueOf(temperatureValue));
+                        humidityList.setText(String.valueOf(humidityValue));
+                    });
                 }
             }
             @Override
