@@ -2,7 +2,7 @@ package com.example.iotlab3app;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.Button;
+import android.widget.Button; // ??? Denna är borttagen, vilken knapp?
 import android.widget.TextView;
 import android.util.Log;
 
@@ -29,22 +29,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     private TextView txv_light;
-
     private TextView txv_temperature;
-
     private TextView txv_humidity;
-
     private TextView luxList;
-
     private TextView temperatureList;
-
     private TextView humidityList;
     private MqttAndroidClient client;
     private static final String SERVER_URI = "tcp://test.mosquitto.org:1883";
     private static final String TAG = "MainActivity";
 
     // Define your topic here
-    private static final String TOPIC = "group03/appValues";
+    private static final String TOPIC = "appValues"; //Vår topic heter bara appValues, inte group03/appValues
 
     private ArrayList<Double> luxValue = new ArrayList<>();
 
@@ -61,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("MissingInflatedId")
     @Override
+    // Körs endast en gång, varje ny start av appen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -70,13 +66,15 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+/*
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.backlog), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+*/
 
+        //OBS, VÅRA VÄRDEN LIVE UPPDATERAS. DÄRFÖR GÖR INTE UPDATE-KNAPPEN NÅT
         txv_light = (TextView) findViewById(R.id.txv_lightValue);
         txv_temperature = (TextView) findViewById(R.id.txv_temperatureValue);
         txv_humidity = (TextView) findViewById((R.id.txv_humidityValue));
@@ -108,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     Exception {
                 String newMessage = new String(message.getPayload());
                 System.out.println("Incoming message: " + newMessage);
-
+                // (har bekräftat i mqtt.py att det stämmer med json format)
                 JSONObject json = new JSONObject(newMessage);
                 double lux = json.getDouble("lux");
                 double temperature = json.getDouble("temperature");
@@ -237,3 +235,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
+//TODO: Diskutera Update-knappens funktionalitet, lösa backlog funktion (Maja, this one's for you!)

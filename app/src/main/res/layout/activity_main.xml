@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:orientation="horizontal">
 
 
-
-    <RelativeLayout android:id="@+id/RelativeLayout01"
+    <RelativeLayout
+        android:id="@+id/RelativeLayout01"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
@@ -44,9 +44,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
             android:padding="15dip"
+            android:text="Acceptable lux value = 0-600lx"
             android:textSize="13sp"
-            android:typeface="monospace"
-            android:text="Acceptable lux value = 0-600lx" />
+            android:typeface="monospace" />
 
         <TextView
             android:id="@+id/temperatureValue"
