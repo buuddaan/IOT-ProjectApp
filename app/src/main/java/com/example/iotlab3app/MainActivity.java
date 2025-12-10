@@ -119,15 +119,39 @@ public class MainActivity extends AppCompatActivity {
 
                     if(lux > 600d || lux < 0d){
                         String luxText = luxValue.get(0) + "OBS, lux out of safe range";
-                        txv_light.setText(luxText);
+                        runOnUiThread(() -> {
+                            txv_light.setText(luxText);
+                            txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
+                            txv_humidity.setText(String.valueOf(humidityValue.get(0)));
+
+                            luxList.setText(String.valueOf(luxValue));
+                            temperatureList.setText(String.valueOf(temperatureValue));
+                            humidityList.setText(String.valueOf(humidityValue));
+                        });
                     }
                     if(temperature > 24d || temperature < 15d){
                         String temperatureText = temperatureValue.get(0) + "OBS, temperature out of safe range";
-                        txv_temperature.setText(temperatureText);
+                        runOnUiThread(() -> {
+                            txv_temperature.setText(temperatureText);
+                            txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
+                            txv_humidity.setText(String.valueOf(humidityValue.get(0)));
+
+                            temperatureList.setText(String.valueOf(temperatureValue));
+                            temperatureList.setText(String.valueOf(temperatureValue));
+                            humidityList.setText(String.valueOf(humidityValue));
+                        });
                     }
                     if(humidity > 50 || humidity < 10){
                         String humidityText = humidityValue.get(0) + "OBS, humidity out of safe range";
-                        txv_humidity.setText(humidityText);
+                        runOnUiThread(() -> {
+                            txv_humidity.setText(humidityText);
+                            txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
+                            txv_humidity.setText(String.valueOf(humidityValue.get(0)));
+
+                            humidityList.setText(String.valueOf(humidityValue));
+                            temperatureList.setText(String.valueOf(temperatureValue));
+                            humidityList.setText(String.valueOf(humidityValue));
+                        });
                     }
 
                     else {
