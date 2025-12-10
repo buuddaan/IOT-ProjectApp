@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="25dp"
                 android:background="@color/activitybutton"
-                android:fontFamily="mFonospace"
+                android:fontFamily="monospace"
                 android:padding="10dp"
                 android:text=" Update "
                 android:textAllCaps="false"
