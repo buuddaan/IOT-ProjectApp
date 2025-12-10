@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     // Define your topic here
-    private static final String TOPIC = "group03/sensorValue";
+    private static final String TOPIC = "group03/appValues";
 
     private ArrayList<Double> luxValue = new ArrayList<>();
 
