@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
             public void connectionLost(Throwable cause) {
                 System.out.println("The Connection was lost.");
             }
+            /*
             @Override
             public void messageArrived(String topic, MqttMessage message) throws
                     Exception {
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 double humidity = json.getDouble("humidity");
 
                 addValues(lux, temperature, humidity);
+                System.out.println();
 
                 if(lux > 600d || lux < 0d){
                     String luxText = luxValue.get(0) + "OBS, lux out of safe range";
@@ -164,6 +166,43 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }
             }
+            */
+            @Override
+            public void messageArrived(String topic, MqttMessage message) throws
+                    Exception {
+                String newMessage = new String(message.getPayload());
+                System.out.println("Incoming message: " + newMessage);
+                // (har bekräftat i mqtt.py att det stämmer med json format)
+                JSONObject json = new JSONObject(newMessage);
+                double lux = json.getDouble("lux");
+                double temperature = json.getDouble("temperature");
+                double humidity = json.getDouble("humidity");
+
+                addValues(lux, temperature, humidity);
+
+                runOnUiThread(() -> {
+                    String luxText=String.valueOf(lux);
+                    String temperatureText=String.valueOf(temperature);
+                    String humidityText=String.valueOf(humidity);
+                    if(lux > 600d || lux < 0d){
+                        luxText = luxText + " - OBS, lux out of safe range";
+                    }
+                    if (temperature > 24d || temperature < 15d){
+                        temperatureText = temperatureText + " - OBS, temperature out of safe range";
+                    }
+                    if (humidity > 50d || humidity < 10d){
+                        humidityText = humidityText + " - OBS, humidity out of safe range";
+                    }
+                    txv_light.setText(luxText);
+                    txv_temperature.setText(temperatureText);
+                    txv_humidity.setText(humidityText);
+
+                    luxList.setText(String.valueOf(luxValue));
+                    temperatureList.setText(String.valueOf(temperatureValue));
+                    humidityList.setText(String.valueOf(humidityValue));
+                });
+            }
+
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
                 System.out.println("Message delivered");
