@@ -33,7 +33,6 @@
             android:textSize="24sp"
             android:typeface="monospace" />
 
-
         <Button
             android:id="@+id/btnMainPage"
             android:layout_width="150dp"

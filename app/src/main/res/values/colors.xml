@@ -10,4 +10,5 @@
     <color name="activitybackground">#FFF5B8</color>
     <color name="activitybutton">#000000</color>
     <color name="activityfont">#3f3f3f</color>
+    <color name="my_button_color">#8296bf</color>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,8 +25,9 @@
             android:lineSpacingExtra="12sp"
             android:padding="10dip"
             android:text="Pharmaceutical data"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="#9B9788"
             android:textSize="30sp"
+            android:textStyle="bold"
             android:typeface="monospace" />
 
         <TextView
@@ -172,17 +174,18 @@
 
             </LinearLayout>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnScanQR"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="25dp"
-                android:background="#000000"
+                android:backgroundTint="#ed749d"
                 android:drawableLeft="@android:drawable/ic_menu_camera"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="Scan next medicin"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                app:backgroundTint="#3F51B5" />
 
             <Button
                 android:id="@+id/btnBacklog"
