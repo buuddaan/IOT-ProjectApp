@@ -6,27 +6,43 @@
     android:id="@+id/backlog"
     android:background="#FFFFFF">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
     <RelativeLayout
         android:id="@+id/RelativeLayout01"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="2dp"
-            android:gravity="center"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="13dp"
+            android:gravity="top"
             android:lineSpacingExtra="12sp"
             android:padding="10dip"
             android:text="Backlog Levaxin"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:typeface="monospace" />
+
+
+        <Button
+            android:id="@+id/btnMainPage"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="#A85454"
+            android:text="Show main page"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
 
         <LinearLayout
             android:layout_width="412dp"
@@ -65,15 +81,13 @@
                 android:textSize="13sp"
                 android:typeface="monospace" />
 
-        </LinearLayout>
+            </LinearLayout>
 
         <LinearLayout
             android:layout_width="412dp"
             android:layout_height="300dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="403dp"
-            android:layout_marginEnd="0dp"
+            android:layout_marginTop="400dp"
+            android:layout_marginEnd="1dp"
             android:background="#FFFFFF"
             android:orientation="vertical">
 
@@ -105,10 +119,12 @@
                 android:textSize="13sp"
                 android:typeface="monospace" />
 
+        </LinearLayout>
+
             <LinearLayout
                 android:layout_width="412dp"
                 android:layout_height="300dp"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="700dp"
                 android:layout_marginEnd="0dp"
                 android:background="#FFFFFF"
                 android:orientation="vertical">
@@ -119,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:padding="5dip"
-                    android:text="Temperature value history:"
+                    android:text="Humidity value history:"
                     android:textSize="15sp"
                     android:typeface="monospace" />
 
@@ -143,8 +159,8 @@
 
             </LinearLayout>
 
-        </LinearLayout>
-
     </RelativeLayout>
+
+    </ScrollView>
 
 </LinearLayout>

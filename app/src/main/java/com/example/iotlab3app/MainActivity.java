@@ -1,7 +1,9 @@
 package com.example.iotlab3app;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button; // ??? Denna är borttagen, vilken knapp?
 import android.widget.TextView;
 import android.util.Log;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private Button button;
     private TextView txv_light;
     private TextView txv_temperature;
     private TextView txv_humidity;
@@ -66,22 +68,25 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-/*
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.backlog), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        button = findViewById(R.id.btnBacklog);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Backlog.class);
+                startActivity(intent);
+            }
         });
-*/
 
         //OBS, VÅRA VÄRDEN LIVE UPPDATERAS. DÄRFÖR GÖR INTE UPDATE-KNAPPEN NÅT
         txv_light = (TextView) findViewById(R.id.txv_lightValue);
         txv_temperature = (TextView) findViewById(R.id.txv_temperatureValue);
         txv_humidity = (TextView) findViewById((R.id.txv_humidityValue));
 
-        luxList = (TextView) findViewById(R.id.luxValue);
-        temperatureList = (TextView) findViewById(R.id.temperatureValue);
-        humidityList = (TextView) findViewById(R.id.humidityValue);
+        luxList = (TextView) findViewById(R.id.luxList);
+        temperatureList = (TextView) findViewById(R.id.temperatureList);
+        humidityList = (TextView) findViewById(R.id.humidityList);
 
         connect();
 
