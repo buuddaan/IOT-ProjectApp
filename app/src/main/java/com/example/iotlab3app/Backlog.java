@@ -29,7 +29,7 @@ public class Backlog extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_backlog2);
+        setContentView(R.layout.activity_backlog);
         //EF TEST hämta id från backlog2
         luxList = findViewById(R.id.luxList);
         temperatureList = findViewById(R.id.temperatureList);
