@@ -68,7 +68,7 @@ public class Backlog extends AppCompatActivity {
                     .append(e.value);
 
             if (e.outOfRange) {
-                sb.append("  - Out of reference interval");
+                sb.append(" !");
             }
 
             sb.append("\n");

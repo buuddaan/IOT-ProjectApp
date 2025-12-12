@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private MqttAndroidClient client;
     private static final String SERVER_URI = "tcp://test.mosquitto.org:1883";
     private static final String TAG = "MainActivity";
+    public String outOfReferenceMessange = " !";
 
     // Define your topic here
     private static final String TOPIC = "appValues"; //Vår topic heter bara appValues, inte group03/appValues
@@ -132,13 +133,13 @@ public class MainActivity extends AppCompatActivity {
                     String temperatureText=String.valueOf(temperature);
                     String humidityText=String.valueOf(humidity);
                     if (luxEntry.outOfRange) {
-                        luxText = luxText + " - Out of reference interval";
+                        luxText = luxText + outOfReferenceMessange;
                     }
                     if (tempEntry.outOfRange) {
-                        temperatureText = temperatureText + " - Out of reference interval";
+                        temperatureText = temperatureText + outOfReferenceMessange;
                     }
                     if (humEntry.outOfRange) {
-                        humidityText = humidityText + " - Out of reference interval";
+                        humidityText = humidityText + outOfReferenceMessange;
                     }
                     txv_light.setText(luxText);
                     txv_temperature.setText(temperatureText);
