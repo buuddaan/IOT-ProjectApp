@@ -75,10 +75,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="305dp"
-            android:layout_marginEnd="0dp"
+            android:layout_marginTop="357dp"
+            android:layout_marginEnd="1dp"
             android:background="#FFFFFF"
-            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <LinearLayout
@@ -94,9 +93,9 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="15dp"
                     android:padding="5dip"
-                    android:text="Lux value:"
+                    android:text="Lux (lx):"
                     android:textColor="@color/black_alpha"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:typeface="monospace" />
 
                 <TextView
@@ -105,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:padding="5dip"
-                    android:text="Nothing yet!"
+                    android:text="___"
                     android:textColor="@color/black_alpha"
                     android:textSize="18sp"
                     android:typeface="monospace" />
@@ -125,9 +124,9 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="15dp"
                     android:padding="5dip"
-                    android:text="Temperature:"
+                    android:text="Temperature (°C):"
                     android:textColor="@color/black_alpha"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:typeface="monospace" />
 
                 <TextView
@@ -136,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:padding="5dip"
-                    android:text="Nothing yet!"
+                    android:text="___"
                     android:textColor="@color/black_alpha"
                     android:textSize="18sp"
                     android:typeface="monospace" />
@@ -156,9 +155,9 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="15dp"
                     android:padding="5dip"
-                    android:text="Humidity value:"
+                    android:text="Humidity (%):"
                     android:textColor="@color/black_alpha"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:typeface="monospace" />
 
                 <TextView
@@ -167,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:padding="5dip"
-                    android:text="Nothing yet!"
+                    android:text="___"
                     android:textColor="@color/black_alpha"
                     android:textSize="18sp"
                     android:typeface="monospace" />
