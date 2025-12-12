@@ -29,7 +29,7 @@
             android:lineSpacingExtra="12sp"
             android:padding="10dip"
             android:text="Backlog Levaxin"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="#332F2B"
             android:textSize="24sp"
             android:typeface="monospace" />
 
@@ -37,7 +37,13 @@
             android:id="@+id/btnMainPage"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_margin="15dp"
+            android:layout_marginStart="-9dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
             android:background="#A85454"
             android:text="Show main page"
             android:textColor="#FFFFFF"
