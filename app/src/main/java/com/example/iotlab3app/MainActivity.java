@@ -27,6 +27,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+//EF TEST för att skapa timestamp varje gång ett nytt meddelande från MQTT kommer
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
@@ -42,19 +47,18 @@ public class MainActivity extends AppCompatActivity {
 
     // Define your topic here
     private static final String TOPIC = "appValues"; //Vår topic heter bara appValues, inte group03/appValues
-
+    //Holds newest values
     private ArrayList<Double> luxValue = new ArrayList<>();
-
     private ArrayList<Double> temperatureValue = new ArrayList<>();
-
     private ArrayList<Double> humidityValue = new ArrayList<>();
 
-    //ArrayList<Double> allLuxValue = new ArrayList<>();
+    //EF TEST, listor med alla backlog entries
+    public static final ArrayList<Entry> luxBacklogEntries = new ArrayList<>();
+    public static final ArrayList<Entry> temperatureBacklogEntries = new ArrayList<>();
+    public static final ArrayList<Entry> humidityBacklogEntries = new ArrayList<>();
+    private static final int BACKLOG_MAX = 50; //EF TEST om vi vill begränsa backlog (?)
 
-    //ArrayList<Double> allTemperatureValue = new ArrayList();
 
-    //innan de gamla värderna raderas, flyttas de över till dessa listor med alla tidigare värden
-    //ingen funktionalitet för detta men kan vara framtida ambitioner
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -120,18 +124,40 @@ public class MainActivity extends AppCompatActivity {
 
                 addValues(lux, temperature, humidity);
 
+                //EF TEST skapa timestamp
+                String ts = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+                //EF TEST skapa Entry objekt (outOfRange sätts i entrykonstruktorn i den klassen)
+                Entry luxEntry = new Entry(SensorType.LUX, ts, String.valueOf(lux));
+                Entry tempEntry = new Entry(SensorType.TEMPERATURE, ts, String.valueOf(temperature));
+                Entry humEntry = new Entry(SensorType.HUMIDITY, ts, String.valueOf(humidity));
+                //EF TEST Lägg i rätt backlog-lista (senaste först)
+                luxBacklogEntries.add(0, luxEntry);
+                temperatureBacklogEntries.add(0, tempEntry);
+                humidityBacklogEntries.add(0, humEntry);
+                //EF TEST Begränsa backlog-storlek (nu till 50 objekt/lista)
+                if (luxBacklogEntries.size() > BACKLOG_MAX) {
+                    luxBacklogEntries.remove(luxBacklogEntries.size() - 1);
+                }
+                if (temperatureBacklogEntries.size() > BACKLOG_MAX) {
+                    temperatureBacklogEntries.remove(temperatureBacklogEntries.size() - 1);
+                }
+                if (humidityBacklogEntries.size() > BACKLOG_MAX) {
+                    humidityBacklogEntries.remove(humidityBacklogEntries.size() - 1);
+                }
+
+
                 runOnUiThread(() -> {
                     String luxText=String.valueOf(lux);
                     String temperatureText=String.valueOf(temperature);
                     String humidityText=String.valueOf(humidity);
-                    if(lux > 600d || lux < 0d){
-                        luxText = luxText + " - OBS, lux out of safe range";
+                    if (luxEntry.outOfRange) {
+                        luxText = luxText + " - Out of reference interval";
                     }
-                    if (temperature > 24d || temperature < 15d){
-                        temperatureText = temperatureText + " - OBS, temperature out of safe range";
+                    if (tempEntry.outOfRange) {
+                        temperatureText = temperatureText + " - Out of reference interval";
                     }
-                    if (humidity > 50d || humidity < 10d){
-                        humidityText = humidityText + " - OBS, humidity out of safe range";
+                    if (humEntry.outOfRange) {
+                        humidityText = humidityText + " - Out of reference interval";
                     }
                     txv_light.setText(luxText);
                     txv_temperature.setText(temperatureText);
