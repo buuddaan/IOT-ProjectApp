@@ -106,72 +106,7 @@ public class MainActivity extends AppCompatActivity {
             public void connectionLost(Throwable cause) {
                 System.out.println("The Connection was lost.");
             }
-            /*
-            @Override
-            public void messageArrived(String topic, MqttMessage message) throws
-                    Exception {
-                String newMessage = new String(message.getPayload());
-                System.out.println("Incoming message: " + newMessage);
-                // (har bekräftat i mqtt.py att det stämmer med json format)
-                JSONObject json = new JSONObject(newMessage);
-                double lux = json.getDouble("lux");
-                double temperature = json.getDouble("temperature");
-                double humidity = json.getDouble("humidity");
 
-                addValues(lux, temperature, humidity);
-                System.out.println();
-
-                if(lux > 600d || lux < 0d){
-                    String luxText = luxValue.get(0) + "OBS, lux out of safe range";
-                    runOnUiThread(() -> {
-                        txv_light.setText(luxText);
-                        txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
-                        txv_humidity.setText(String.valueOf(humidityValue.get(0)));
-
-                        luxList.setText(String.valueOf(luxValue));
-                        temperatureList.setText(String.valueOf(temperatureValue));
-                        humidityList.setText(String.valueOf(humidityValue));
-                    });
-                }
-                else if(temperature > 24d || temperature < 15d){
-                    String temperatureText = temperatureValue.get(0) + "OBS, temperature out of safe range";
-                    runOnUiThread(() -> {
-                        txv_temperature.setText(temperatureText);
-                        txv_light.setText(String.valueOf(luxValue.get(0)));
-                        txv_humidity.setText(String.valueOf(humidityValue.get(0)));
-
-                        luxList.setText(String.valueOf(luxValue));
-                        temperatureList.setText(String.valueOf(temperatureValue));
-                        humidityList.setText(String.valueOf(humidityValue));
-                    });
-                }
-                else if(humidity > 50 || humidity < 10){
-                    String humidityText = humidityValue.get(0) + "OBS, humidity out of safe range";
-                    runOnUiThread(() -> {
-                        txv_humidity.setText(humidityText);
-                        txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
-                        txv_light.setText(String.valueOf(luxValue.get(0)));
-
-                        luxList.setText(String.valueOf(luxValue));
-                        temperatureList.setText(String.valueOf(temperatureValue));
-                        humidityList.setText(String.valueOf(humidityValue));
-                    });
-                }
-
-                else {
-                    runOnUiThread(() -> {
-                        txv_light.setText(String.valueOf(luxValue.get(0)));
-                        txv_temperature.setText(String.valueOf(temperatureValue.get(0)));
-                        txv_humidity.setText(String.valueOf(humidityValue.get(0)));
-
-                        //för backloggen
-                        luxList.setText(String.valueOf(luxValue));
-                        temperatureList.setText(String.valueOf(temperatureValue));
-                        humidityList.setText(String.valueOf(humidityValue));
-                    });
-                }
-            }
-            */
             @Override
             public void messageArrived(String topic, MqttMessage message) throws
                     Exception {
