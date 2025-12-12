@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 double temperature = json.getDouble("temperature");
                 double humidity = json.getDouble("humidity");
 
-                //EF TEST skapa timestamp
+                //EF TEST skapa timestamp BORDE FLYTTAS TILL MQTT-SCRIPTET I RASPBERRY PI FÖR ATT DEET SKA VA FULLT ASYNKRONT men behåller såhär nu
                 String ts = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
                 //EF TEST skapa Entry objekt (outOfRange sätts i entrykonstruktorn i den klassen)
                 Entry luxEntry = new Entry(SensorType.LUX, ts, String.valueOf(lux));
