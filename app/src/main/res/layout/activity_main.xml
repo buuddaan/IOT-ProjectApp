@@ -190,7 +190,7 @@
             android:backgroundTint="#ed749d"
             android:drawableLeft="@android:drawable/ic_menu_camera"
             android:padding="10dp"
-            android:text="Scan Next Medicine"
+            android:text="Scan Next Package"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             app:backgroundTint="#3F51B5" />
