@@ -47,10 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Define your topic here
     private static final String TOPIC = "appValues"; //Vår topic heter bara appValues, inte group03/appValues
-    //Holds newest values
-    private ArrayList<Double> luxValue = new ArrayList<>();
-    private ArrayList<Double> temperatureValue = new ArrayList<>();
-    private ArrayList<Double> humidityValue = new ArrayList<>();
 
     //EF TEST, listor med alla backlog entries
     public static final ArrayList<Entry> luxBacklogEntries = new ArrayList<>();
@@ -122,29 +118,14 @@ public class MainActivity extends AppCompatActivity {
                 double temperature = json.getDouble("temperature");
                 double humidity = json.getDouble("humidity");
 
-                addValues(lux, temperature, humidity);
-
                 //EF TEST skapa timestamp
                 String ts = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
                 //EF TEST skapa Entry objekt (outOfRange sätts i entrykonstruktorn i den klassen)
                 Entry luxEntry = new Entry(SensorType.LUX, ts, String.valueOf(lux));
                 Entry tempEntry = new Entry(SensorType.TEMPERATURE, ts, String.valueOf(temperature));
                 Entry humEntry = new Entry(SensorType.HUMIDITY, ts, String.valueOf(humidity));
-                //EF TEST Lägg i rätt backlog-lista (senaste först)
-                luxBacklogEntries.add(0, luxEntry);
-                temperatureBacklogEntries.add(0, tempEntry);
-                humidityBacklogEntries.add(0, humEntry);
-                //EF TEST Begränsa backlog-storlek (nu till 50 objekt/lista)
-                if (luxBacklogEntries.size() > BACKLOG_MAX) {
-                    luxBacklogEntries.remove(luxBacklogEntries.size() - 1);
-                }
-                if (temperatureBacklogEntries.size() > BACKLOG_MAX) {
-                    temperatureBacklogEntries.remove(temperatureBacklogEntries.size() - 1);
-                }
-                if (humidityBacklogEntries.size() > BACKLOG_MAX) {
-                    humidityBacklogEntries.remove(humidityBacklogEntries.size() - 1);
-                }
 
+                addValues(luxEntry, tempEntry, humEntry);
 
                 runOnUiThread(() -> {
                     String luxText=String.valueOf(lux);
@@ -163,9 +144,9 @@ public class MainActivity extends AppCompatActivity {
                     txv_temperature.setText(temperatureText);
                     txv_humidity.setText(humidityText);
 
-                    luxList.setText(String.valueOf(luxValue));
-                    temperatureList.setText(String.valueOf(temperatureValue));
-                    humidityList.setText(String.valueOf(humidityValue));
+                    luxList.setText(String.valueOf(luxBacklogEntries));
+                    temperatureList.setText(String.valueOf(temperatureBacklogEntries));
+                    humidityList.setText(String.valueOf(humidityBacklogEntries));
                 });
             }
 
@@ -176,21 +157,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void addValues(double lux, double temperature, double humidity){
-        luxValue.add(0, lux);
-
-        temperatureValue.add(0, temperature);
-
-        humidityValue.add(0, humidity);
-
-        if (luxValue.size() > 10){
-            luxValue.remove(10);
+    private void addValues(Entry lux, Entry temperature, Entry humidity) {
+        luxBacklogEntries.add(0, lux);
+        temperatureBacklogEntries.add(0, temperature);
+        humidityBacklogEntries.add(0, humidity);
+        //EF TEST Begränsa backlog-storlek (nu till 50 objekt/lista)
+        if (luxBacklogEntries.size() > BACKLOG_MAX) {
+            luxBacklogEntries.remove(luxBacklogEntries.size() - 1);
         }
-        if (temperatureValue.size() > 10){
-            temperatureValue.remove(10);
+        if (temperatureBacklogEntries.size() > BACKLOG_MAX) {
+            temperatureBacklogEntries.remove(temperatureBacklogEntries.size() - 1);
         }
-        if (humidityValue.size() > 10){
-            humidityValue.remove(10);
+        if (humidityBacklogEntries.size() > BACKLOG_MAX) {
+            humidityBacklogEntries.remove(humidityBacklogEntries.size() - 1);
         }
     }
 

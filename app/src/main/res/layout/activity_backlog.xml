@@ -33,7 +33,7 @@
             android:layout_height="300dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="94dp"
+            android:layout_marginTop="92dp"
             android:layout_marginEnd="0dp"
             android:background="#FFFFFF"
             android:orientation="vertical">
@@ -59,7 +59,7 @@
             <TextView
                 android:id="@+id/luxList"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:padding="5dip"
                 android:text="Data"
                 android:textSize="13sp"
@@ -99,7 +99,7 @@
             <TextView
                 android:id="@+id/temperatureList"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:padding="5dip"
                 android:text="Data"
                 android:textSize="13sp"
@@ -135,7 +135,7 @@
                 <TextView
                     android:id="@+id/humidityList"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="fill_parent"
                     android:padding="5dip"
                     android:text="Data"
                     android:textSize="13sp"
