@@ -2,6 +2,8 @@ package com.example.iotlab3app;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button; // ??? Denna är borttagen, vilken knapp?
@@ -9,10 +11,20 @@ import android.widget.TextView;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Result;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.QRCodeReader;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -34,7 +46,9 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button button;
+    private Button buttonBacklog;
+
+    private Button buttonScanQr;
     private TextView txv_light;
     private TextView txv_temperature;
     private TextView txv_humidity;
@@ -56,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int BACKLOG_MAX = 50; //EF TEST om vi vill begränsa backlog (?)
 
 
+    //private Button scanQrBtn;
+
+    //private TextView errorQr;
+
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -70,15 +89,26 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        button = findViewById(R.id.btnBacklog);
+        buttonBacklog = findViewById(R.id.btnBacklog);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonBacklog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Backlog.class);
                 startActivity(intent);
             }
         });
+
+        buttonScanQr = findViewById(R.id.btnScanQR);
+
+        buttonScanQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, QrCode.class);
+                startActivity(intent);
+            }
+        });
+
 
         //OBS, VÅRA VÄRDEN LIVE UPPDATERAS. DÄRFÖR GÖR INTE UPDATE-KNAPPEN NÅT
         txv_light = (TextView) findViewById(R.id.txv_lightValue);
@@ -156,7 +186,47 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Message delivered");
             }
         });
+
+
+        //scanQrBtn = findViewById(R.id.btnScanQR);
+
+        //scanQrBtn.setOnClickListener(v -> testQrFromBitmap());
+
+        //errorQr = findViewById(R.id.errorMessageMain);
+
     }
+   /*
+    private void handleQrResults(String qrText) {
+        if (qrText.equals("levaxin")) {
+            startActivity(new Intent(MainActivity.this, QrCode.class));
+        }
+
+        else {
+            errorQr.setText("Wrong QR code, try again!");
+        }
+    }
+
+    private void testQrFromBitmap() {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.levaxin);
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int[] pixels = new int[width * height];
+        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+
+        LuminanceSource source = new RGBLuminanceSource(width, height, pixels);
+        BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(source));
+
+        try {
+            QRCodeReader reader = new QRCodeReader();
+            Result result = reader.decode(binaryBitmap);
+            handleQrResults(result.getText());
+        } catch (Exception e) {
+            errorQr.setText("Could not read QR from image");
+            e.printStackTrace();
+        }
+    }
+
+    */
 
     private void addValues(Entry lux, Entry temperature, Entry humidity) {
         luxBacklogEntries.add(0, lux);
@@ -220,5 +290,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
-//TODO: Diskutera Update-knappens funktionalitet, lösa backlog funktion (Maja, this one's for you!). Förslag: byta knappar mot mer värden på startsida

@@ -41,12 +41,13 @@ public class QrCode extends AppCompatActivity {
 
         scanQrBtn = findViewById(R.id.scanQrBtn);
 
-        scanQrBtn.setOnClickListener(v -> testQrFromBitmap());
+        scanQrBtn.setOnClickListener(v -> startQrScanner());
 
-        errorQr = findViewById(R.id.errorMessage);
+        errorQr = findViewById(R.id.errorMessageQr);
 
     }
 
+    //Om man hade kunnat testa koden med en riktig kamera
     private final ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() != null) {
             String qrText = result.getContents();
@@ -55,7 +56,7 @@ public class QrCode extends AppCompatActivity {
     });
 
     //Om man hade kunnat testa koden med en riktig kamera
-    private void starQrScanner() {
+    private void startQrScanner() {
         ScanOptions options = new ScanOptions();
         options.setPrompt("Scanna nästa paket");
         options.setBeepEnabled(true);

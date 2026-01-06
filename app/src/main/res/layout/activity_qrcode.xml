@@ -29,7 +29,7 @@
             app:backgroundTint="#3F51B5" />
 
         <TextView
-            android:id="@+id/errorMessage"
+            android:id="@+id/errorMessageQr"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="230dp"
