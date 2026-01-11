@@ -1,5 +1,3 @@
-//EF test
-
 package com.example.iotlab3app;
 
 public class Entry {

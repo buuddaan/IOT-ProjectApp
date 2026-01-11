@@ -4,11 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button; // ??? Denna är borttagen, vilken knapp?
+import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -27,14 +28,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-//EF TEST för att skapa timestamp varje gång ett nytt meddelande från MQTT kommer
+//för att skapa timestamp varje gång ett nytt meddelande från MQTT kommer
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-
-    private Button button;
+    private Button buttonBacklog;
+    private Button buttonScanQr;
     private TextView txv_light;
     private TextView txv_temperature;
     private TextView txv_humidity;
@@ -47,14 +48,13 @@ public class MainActivity extends AppCompatActivity {
     public String outOfReferenceMessange = " !*";
 
     // Define your topic here
-    private static final String TOPIC = "appValues"; //Vår topic heter bara appValues, inte group03/appValues
+    private static final String TOPIC = "appValues";
 
-    //EF TEST, listor med alla backlog entries
+    //listor med alla backlog entries
     public static final ArrayList<Entry> luxBacklogEntries = new ArrayList<>();
     public static final ArrayList<Entry> temperatureBacklogEntries = new ArrayList<>();
     public static final ArrayList<Entry> humidityBacklogEntries = new ArrayList<>();
-    private static final int BACKLOG_MAX = 50; //EF TEST om vi vill begränsa backlog (?)
-
+    private static final int BACKLOG_MAX = 50;
 
 
     @SuppressLint("MissingInflatedId")
@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        button = findViewById(R.id.btnBacklog);
+        buttonBacklog = findViewById(R.id.btnBacklog);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonBacklog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Backlog.class);
@@ -80,7 +80,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //OBS, VÅRA VÄRDEN LIVE UPPDATERAS. DÄRFÖR GÖR INTE UPDATE-KNAPPEN NÅT
+        buttonScanQr = findViewById(R.id.btnScanQR);
+
+        buttonScanQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, QrCode.class);
+                startActivity(intent);
+            }
+        });
+
         txv_light = (TextView) findViewById(R.id.txv_lightValue);
         txv_temperature = (TextView) findViewById(R.id.txv_temperatureValue);
         txv_humidity = (TextView) findViewById((R.id.txv_humidityValue));
@@ -119,9 +128,9 @@ public class MainActivity extends AppCompatActivity {
                 double temperature = json.getDouble("temperature");
                 double humidity = json.getDouble("humidity");
 
-                //EF TEST skapa timestamp BORDE FLYTTAS TILL MQTT-SCRIPTET I RASPBERRY PI FÖR ATT DEET SKA VA FULLT ASYNKRONT men behåller såhär nu
+                //skapa timestamp
                 String ts = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-                //EF TEST skapa Entry objekt (outOfRange sätts i entrykonstruktorn i den klassen)
+                //skapa Entry objekt (outOfRange sätts i entrykonstruktorn i den klassen)
                 Entry luxEntry = new Entry(SensorType.LUX, ts, String.valueOf(lux));
                 Entry tempEntry = new Entry(SensorType.TEMPERATURE, ts, String.valueOf(temperature));
                 Entry humEntry = new Entry(SensorType.HUMIDITY, ts, String.valueOf(humidity));
@@ -220,5 +229,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
-//TODO: Diskutera Update-knappens funktionalitet, lösa backlog funktion (Maja, this one's for you!). Förslag: byta knappar mot mer värden på startsida
